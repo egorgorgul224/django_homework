@@ -1,0 +1,54 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "product_name": "Клубника",
+        "product_description": "Описание клубники",
+        "image": "photos/strawberry.png",
+        "category": 2,
+        "product_price": 45,
+        "created_at": "2025-06-07T10:31:33.027Z",
+        "update_at": "2025-06-07T10:31:33.027Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "product_name": "Огурец",
+        "product_description": "Описание огурца",
+        "image": "photos/cucumber.png",
+        "category": 1,
+        "product_price": 15,
+        "created_at": "2025-06-07T10:32:11.792Z",
+        "update_at": "2025-06-07T10:32:11.792Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "product_name": "Помидор",
+        "product_description": "Описание помидора",
+        "image": "photos/tomato.png",
+        "category": 1,
+        "product_price": 20,
+        "created_at": "2025-06-07T10:32:31.460Z",
+        "update_at": "2025-06-07T10:32:31.460Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "product_name": "Молоко",
+        "product_description": "Описание для молочной продукции",
+        "image": "photos/milk.png",
+        "category": 3,
+        "product_price": 6,
+        "created_at": "2025-06-07T10:33:48.164Z",
+        "update_at": "2025-06-07T10:33:48.164Z"
+    }
+}
+]

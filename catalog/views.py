@@ -1,5 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+
 
 # Create your views here.
 def home(request):
@@ -13,4 +14,4 @@ def contacts(request):
         message = request.POST.get("message")
 
         return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
-    return render(request,"catalog/contacts.html")
+    return render(request, "catalog/contacts.html")
