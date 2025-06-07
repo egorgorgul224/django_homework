@@ -12,7 +12,6 @@ class Category(models.Model):
         verbose_name = "категория"
         verbose_name_plural = "категории"
         ordering = ["category_name"]
-        db_name = "custom_table_name"
 
 
 class Product(models.Model):
@@ -31,4 +30,3 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ["product_name"]
-        db_name = "custom_table_name"
