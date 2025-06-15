@@ -1,34 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Информация о продукте</title>
-    <!-- Подключение Bootstrap CSS -->
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
-        <nav class="ms-5">
-            <a class="p-2 btn btn-outline-primary" href="/">Главная</a>
-            <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
-        </nav>
-    </div>
-</div>
-<div class="container mt-5">
-    <h1 class="mb-4">Информация о продукте</h1>
-    <p>Наименование: {{ product.product_name}}</p>
-    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="img-thumbnail" style="height: 300px;">
-    <p>Стоимость продукта: {{ product.product_price }} руб.</p>
-    <p>Описание: {{ product.product_description }}</p>
-    <p>Дата создания: {{ product.created_at|date:"d M Y" }}</p>
-    <p>Категория продукта: {{ product.category_id }}</p>
-    <button type="button" class="btn btn-lg btn-block btn-outline-primary">На главную</button>
+{% extends 'catalog/base.html' %}
 
-</div>
-<!-- Подключение Bootstrap JS -->
-<script src="/static/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% block title %}Информация о продукте{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Информация о продукте</h1>
+<p>Наименование: {{ product.product_name}}</p>
+<img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="img-thumbnail" style="height: 300px;">
+<p>Стоимость продукта: {{ product.product_price }} руб.</p>
+<p>Описание: {{ product.product_description }}</p>
+<p>Дата создания: {{ product.created_at|date:"d M Y" }}</p>
+<p>Категория продукта: {{ product.category_id }}</p>
+<a class="p-2 btn btn-outline-primary" href="#">На главную</a>
+
+{% endblock %}
