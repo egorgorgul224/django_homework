@@ -28,4 +28,4 @@ def product_detail(request, product_id):
 def product_list_home(request):
     products = Product.objects.all()
     context = {'products': products}
-    return render(request, 'catalog/home.html', context)
+    return render(request, 'catalog/main.html', context)
