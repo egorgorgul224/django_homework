@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from catalog.models import Category, Product
 
 
@@ -16,8 +17,10 @@ def contacts(request):
 
 def product_detail(request, product_id):
     product = Product.objects.get(id=product_id)
+    category = Category.objects.get(id=product.category_id)
     context = {
         "product": product,
+        "category": category,
     }
     return render(request, "catalog/product_detail.html", context=context)
 
