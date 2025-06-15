@@ -1,0 +1,17 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Информация о продукте{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Информация о продукте</h1>
+<p>Наименование: {{ product.product_name}}</p>
+<img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="img-thumbnail" style="height: 300px;">
+<p>Категория продукта: {{ category.category_name }}</p>
+<p>Стоимость продукта: {{ product.product_price }} руб.</p>
+<p>Описание: {{ product.product_description }}</p>
+<p>Дата создания: {{ product.created_at|date:"d M Y" }}</p>
+<p>Дата обновления: {{ product.update_at|date:"d M Y" }}</p>
+<a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list_home' %}">На главную</a>
+
+{% endblock %}
