@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Мой блог{% endblock %}
+
+{% block content %}
+{% include 'blog/header.html' %}
+
+<div class="row text-center">
+    {% for article in object_list %}
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ article.title }}</h4>
+                <div>
+                    <b>{{ article.created_at|date:"d M Y" }}</b>
+                    <img src="{% static 'images/views.png' %}" style="height: 15px"> {{ article.views_counter}}
+                </div>
+            </div>
+            <div class="card-body">
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width: 100%; height: 250px">
+                <p>{{ article.content|truncatechars:160 }}</p>
+                <a class="p-2 btn btn-outline-dark" href="{% url 'blog:article_detail' article.id %}">Подробнее</a>
+                <a class="p-2 btn btn-outline-dark" href="{% url 'blog:article_update' article.id %}">Редактировать</a>
+                <a class="p-2 btn btn-outline-dark" href="{% url 'blog:article_delete' article.id %}">Удалить</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
