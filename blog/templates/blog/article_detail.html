@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Информация о статье{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">Информация о статье</h1>
+<p><b>Заголовок:</b> {{ object.title}}</p>
+<img src="{{ article.image.url }}" alt="{{ article.title }}" style="height: 300px;">
+<p><b>Содержимое:</b> {{ object.content }}</p>
+<p><b>Дата создания:</b> {{ object.created_at|date:"d M Y" }}</p>
+<p><b>Статус публикации:</b> {{ object.is_published }}</p>
+<p><b>Количество просмотров статьи:</b> {{ object.views_counter}}</p>
+<a class="p-2 btn btn-outline-dark" href="{% url 'blog:article_list_home' %}">На главную</a>
+
+{% endblock %}
