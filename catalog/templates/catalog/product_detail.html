@@ -13,5 +13,7 @@
 <p>Дата создания: {{ object.created_at|date:"d M Y" }}</p>
 <p>Дата обновления: {{ object.update_at|date:"d M Y" }}</p>
 <a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_list_home' %}">На главную</a>
+<a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_update' product.id %}">Редактировать</a>
+<a class="p-2 btn btn-outline-dark" href="{% url 'catalog:product_delete' product.id %}">Удалить</a>
 
 {% endblock %}
