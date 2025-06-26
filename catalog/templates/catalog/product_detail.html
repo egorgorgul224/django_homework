@@ -1,4 +1,5 @@
 {% extends 'catalog/base.html' %}
+{% load static %}
 
 {% block title %}Информация о продукте{% endblock %}
 
@@ -6,7 +7,11 @@
 
 <h1 class="mb-4">Информация о продукте</h1>
 <p>Наименование: {{ object.product_name}}</p>
-<img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="img-thumbnail" style="height: 300px;">
+{% if product.image %}
+<img src="{{ product.image.url }}" alt="{{ product.product_name }}" style="height: 300px;">
+{% else %}
+<img src="{% static 'images/noimage.jpg' %}" style="height: 300px;">
+{% endif %}
 <p>Категория продукта: {{ object.category.category_name }}</p>
 <p>Стоимость продукта: {{ object.product_price }} руб.</p>
 <p>Описание: {{ object.product_description }}</p>
