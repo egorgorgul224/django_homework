@@ -14,42 +14,48 @@ class ProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
 
-        self.fields["product_name"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите название продукта"
-        })
+        self.fields["product_name"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите название продукта"}
+        )
 
-        self.fields["product_description"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите описание продукта"
-        })
+        self.fields["product_description"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите описание продукта"}
+        )
 
-        self.fields["category"].widget.attrs.update({
-            "class": "form-select",
-        })
+        self.fields["category"].widget.attrs.update(
+            {
+                "class": "form-select",
+            }
+        )
 
-        self.fields["product_price"].widget.attrs.update({
-            "class": "form-control",
-            "placeholder": "Введите стоимость товара"
-        })
+        self.fields["product_price"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Введите стоимость товара"}
+        )
 
-    def clean_price(self):
-        product_price = self.cleaned_data.get("product_price")
-        if product_price < 0:
+    def clean_product_name(self):
+        name = self.cleaned_data.get("product_name")
+        for elem in name.lower().split():
+            if elem in BAN_WORDS:
+                raise ValidationError(f"Название товара содержит недопустимое слово: {elem}")
+        return name
+
+    def clean_product_description(self):
+        description = self.cleaned_data.get("product_description")
+        for word in description.lower().split():
+            if word in BAN_WORDS:
+                raise ValidationError(f"Описание товара содержит недопустимое слово: {word}")
+        return description
+
+    def clean_product_price(self):
+        price = self.cleaned_data.get("product_price")
+        if price < 0:
             raise ValidationError("Стоимость не может быть отрицательной")
-        return product_price
+        return price
 
-    # def clean_name(self):
-    #
-    #     name = self.cleaned_data.get("product_name").lower().spilt()
-    #     for elem in name:
-    #         if elem in BAN_WORDS:
-    #             raise ValidationError("Название товара содержит недопустимое(ые) слово(а)")
-    #     return name
-    #
-    # def clean_description(self):
-    #     description = self.cleaned_data.get("product_description").lower().split()
-    #     for word in description:
-    #         if word in BAN_WORDS:
-    #             raise ValidationError("Описание содержит недопустимое(ые) слово(а)")
-    #     return description
+    def clean_image(self):
+        image = self.cleaned_data.get("image")
+        if not image.name.endswith(('.jpg', '.jpeg', '.png')):
+            raise ValidationError("Неверный формат файла: используйте JPG или PNG")
+        if image.size > 5 * 1024 * 1024:
+            raise ValidationError("Файл превышает допустимый размер в 5 МБ")
+        return image
