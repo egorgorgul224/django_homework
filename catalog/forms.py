@@ -1,12 +1,15 @@
 from django import forms
-from .models import Product
 from django.core.exceptions import ValidationError
+
+from .models import Product
+
+BAN_WORDS = ["казино", "биржа", "обман", "криптовалюта", "дешево", "полиция", "крипта", "бесплатно", "радар"]
 
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ["product_name", "product_description", "image", "category", "product_price",]
+        fields = "__all__"
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
@@ -22,7 +25,7 @@ class ProductForm(forms.ModelForm):
         })
 
         self.fields["category"].widget.attrs.update({
-            "class": "form-check",
+            "class": "form-select",
         })
 
         self.fields["product_price"].widget.attrs.update({
@@ -30,24 +33,23 @@ class ProductForm(forms.ModelForm):
             "placeholder": "Введите стоимость товара"
         })
 
+    def clean_price(self):
+        product_price = self.cleaned_data.get("product_price")
+        if product_price < 0:
+            raise ValidationError("Стоимость не может быть отрицательной")
+        return product_price
+
     # def clean_name(self):
-    #     ban_words = ["казино", "биржа", "обман", "криптовалюта", "дешево", "полиция", "крипта", "бесплатно", "радар"]
+    #
     #     name = self.cleaned_data.get("product_name").lower().spilt()
     #     for elem in name:
-    #         if elem in ban_words:
+    #         if elem in BAN_WORDS:
     #             raise ValidationError("Название товара содержит недопустимое(ые) слово(а)")
     #     return name
     #
     # def clean_description(self):
-    #     ban_words = ["казино", "биржа", "обман", "криптовалюта", "дешево", "полиция", "крипта", "бесплатно", "радар"]
-    #     description = self.cleaned_data.get("product_description")
-    #     for word in description.lower().split():
-    #         if word in ban_words:
+    #     description = self.cleaned_data.get("product_description").lower().split()
+    #     for word in description:
+    #         if word in BAN_WORDS:
     #             raise ValidationError("Описание содержит недопустимое(ые) слово(а)")
     #     return description
-    #
-    # def clean_price(self):
-    #     price = self.cleaned_data.get("price")
-    #     if price < 0:
-    #         raise ValidationError("Стоимость не может быть отрицательной")
-    #     return price
