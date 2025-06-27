@@ -32,19 +32,16 @@ class ProductForm(forms.ModelForm):
             {"class": "form-control", "placeholder": "Введите стоимость товара"}
         )
 
-    def clean_product_name(self):
+    def clean(self):
+        cleaned_data = super().clean()
         name = self.cleaned_data.get("product_name")
+        description = self.cleaned_data.get("product_description")
         for elem in name.lower().split():
             if elem in BAN_WORDS:
                 raise ValidationError(f"Название товара содержит недопустимое слово: {elem}")
-        return name
-
-    def clean_product_description(self):
-        description = self.cleaned_data.get("product_description")
         for word in description.lower().split():
             if word in BAN_WORDS:
                 raise ValidationError(f"Описание товара содержит недопустимое слово: {word}")
-        return description
 
     def clean_product_price(self):
         price = self.cleaned_data.get("product_price")
@@ -54,7 +51,7 @@ class ProductForm(forms.ModelForm):
 
     def clean_image(self):
         image = self.cleaned_data.get("image")
-        if not image.name.endswith(('.jpg', '.jpeg', '.png')):
+        if not image.name.endswith((".jpg", ".jpeg", ".png")):
             raise ValidationError("Неверный формат файла: используйте JPG или PNG")
         if image.size > 5 * 1024 * 1024:
             raise ValidationError("Файл превышает допустимый размер в 5 МБ")
