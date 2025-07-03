@@ -7,6 +7,8 @@ import secrets
 from .forms import CustomUserCreationForm
 from .models import User
 
+import os
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 
 class RegisterView(CreateView):
     template_name = "users/register.html"
@@ -24,7 +26,7 @@ class RegisterView(CreateView):
         send_mail(
             subject="Подтверждение почты",
             message=f"Привет, перейди по ссылке для подтверждения почты {url}",
-            from_email="gorgul.egor@ya.ru",
+            from_email=EMAIL_HOST_USER,
             recipient_list=[user.email]
         )
         return super().form_valid(form)
