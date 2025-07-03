@@ -7,7 +7,7 @@ from .models import User
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("email", "avatar", "phone", "country", "password1", "password2")
+        fields = ("email", "password1", "password2")
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
